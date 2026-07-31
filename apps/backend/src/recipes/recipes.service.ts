@@ -7,23 +7,23 @@ import { UpdateRecipeDto } from './dto/UpdateRecipeDto.dto';
 export class RecipesService {
   constructor(private prisma: PrismaService) {}
 
-  async getRecipes() {
+  getRecipes() {
     return this.prisma.recipe.findMany();
   }
 
-  async getRecipe(id: number) {
+  getRecipe(id: number) {
     return this.prisma.recipe.findFirst({ where: { id } });
   }
 
-  async createRecipe(recipe: CreateRecipeDto) {
+  createRecipe(recipe: CreateRecipeDto) {
     return this.prisma.recipe.create({ data: recipe });
   }
 
-  async modifyRecipe(id: number, recipe: UpdateRecipeDto) {
+  modifyRecipe(id: number, recipe: UpdateRecipeDto) {
     return this.prisma.recipe.update({ where: { id }, data: recipe });
   }
 
-  async deleteRecipe(id: number) {
+  deleteRecipe(id: number) {
     return this.prisma.recipe.delete({ where: { id } });
   }
 }

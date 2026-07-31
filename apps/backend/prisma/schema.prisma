@@ -16,7 +16,45 @@ datasource db {
 model Recipe {
   id        Int      @id @default(autoincrement())
   name      String
+	recipeIngredients RecipeIngredient[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model RecipeIngredient {
+  recipeId 				Int 
+	ingredientId 		Int 
+	unitId 					Int?
+	quantity 				Float?
+	
+	recipe 					Recipe @relation(fields: [recipeId], references: [id])
+	ingredient 			Ingredient @relation(fields: [ingredientId], references: [id])
+	unit 						Unit? @relation(fields: [unitId], references: [id])
+	@@id([recipeId, ingredientId])
+}
+
+model Ingredient {
+  id 				Int 			@id @default(autoincrement())
+	name			String		@unique
+  categoryId Int?
+	
+	category 	Category? @relation(fields: [categoryId], references: [id])
+	recipeIngredients 	RecipeIngredient[]
+	
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+}
+
+model Unit {
+  id 			Int @id @default(autoincrement())
+	name 		String @unique
+	symbol	String
+	recipeIngredients 	RecipeIngredient[]
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+	name String @unique
+	ingredients Ingredient[]
 }
