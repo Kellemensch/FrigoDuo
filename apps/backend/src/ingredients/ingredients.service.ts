@@ -60,13 +60,14 @@ export class IngredientsService {
       }
     }
 
-    const existingName = await this.prisma.ingredient.findUnique({
-      where: { name: name, NOT: { id: id } },
-    });
-    if (existingName) {
-      throw new ConflictException('This name of ingredient already exists');
+    if (name) {
+      const existingName = await this.prisma.ingredient.findUnique({
+        where: { name: name, NOT: { id: id } },
+      });
+      if (existingName) {
+        throw new ConflictException('This name of ingredient already exists');
+      }
     }
-
     return this.prisma.ingredient.update({ where: { id }, data: ingredient });
   }
 
