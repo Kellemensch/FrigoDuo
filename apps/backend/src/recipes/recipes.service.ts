@@ -12,21 +12,30 @@ export class RecipesService {
   constructor(private prisma: PrismaService) {}
 
   getRecipes() {
-    return this.prisma.recipe.findMany();
+    return this.prisma.recipe.findMany({
+      include: { recipeIngredients: true },
+    });
   }
 
   getRecipe(id: number) {
-    return this.prisma.recipe.findFirst({ where: { id } });
+    return this.prisma.recipe.findFirst({
+      where: { id },
+      include: {
+        recipeIngredients: { include: { ingredient: true, unit: true } },
+      },
+    });
   }
 
   async createRecipe(recipe: CreateRecipeDto) {
     const name = recipe.name.trim().toLowerCase();
-    const existingRecipe = await this.prisma.recipe.findUnique({
+    /*
+		 const existingRecipe = await this.prisma.recipe.findUnique({
       where: { name: name },
     });
     if (existingRecipe) {
       throw new ConflictException('The recipe already exists');
     }
+    */
 
     for (let i = 0; i < recipe.ingredients.length; i++) {
       const ingredient = recipe.ingredients[i];

@@ -15,7 +15,7 @@ datasource db {
 
 model Recipe {
   id        Int      @id @default(autoincrement())
-  name      String	@unique
+  name      String
 	recipeIngredients RecipeIngredient[]
 
   createdAt DateTime @default(now())

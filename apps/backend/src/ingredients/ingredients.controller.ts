@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { IngredientsService } from './ingredients.service';
 import { CreateIngredientDto } from './dto/CreateIngredientDto.dto';
@@ -19,6 +20,11 @@ export class IngredientsController {
   @Get()
   getIngredients() {
     return this.ingredientsService.getIngredients();
+  }
+
+  @Get('search')
+  searchIngredient(@Query('q') q: string) {
+    return this.ingredientsService.searchIngredient(q);
   }
 
   @Get(':id')

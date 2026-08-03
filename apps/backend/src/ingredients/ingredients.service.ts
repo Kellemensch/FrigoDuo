@@ -74,4 +74,12 @@ export class IngredientsService {
   deleteIngredient(id: number) {
     return this.prisma.ingredient.delete({ where: { id } });
   }
+
+  searchIngredient(q: string) {
+    return this.prisma.ingredient.findMany({
+      where: {
+        name: { contains: q.trim().toLowerCase() },
+      },
+    });
+  }
 }
