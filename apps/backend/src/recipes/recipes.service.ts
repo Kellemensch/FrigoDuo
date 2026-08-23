@@ -55,7 +55,8 @@ export class RecipesService {
         }
       }
     }
-    await this.prisma.$transaction(async (tx) => {
+
+    const recipeCreated = await this.prisma.$transaction(async (tx) => {
       const recipeCreated = await tx.recipe.create({ data: { name: name } });
       const recipeId = recipeCreated.id;
 
@@ -70,7 +71,8 @@ export class RecipesService {
 
       return recipeCreated;
     });
-    return this.prisma.recipe.create({ data: recipe });
+
+    return recipeCreated;
   }
 
   modifyRecipe(id: number, recipe: UpdateRecipeDto) {
