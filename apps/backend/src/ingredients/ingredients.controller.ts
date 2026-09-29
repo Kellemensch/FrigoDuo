@@ -28,7 +28,7 @@ export class IngredientsController {
   }
 
   @Get(':id')
-  getIngredient(@Body('id', ParseIntPipe) id: number) {
+  getIngredient(@Param('id', ParseIntPipe) id: number) {
     return this.ingredientsService.getIngredient(id);
   }
 
