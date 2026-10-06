@@ -1,3 +1,4 @@
+import CreateIngredientButton from "@/components/homescreen/createIngredientButton";
 import CreateRecipeButton from "@/components/homescreen/createRecipeButton";
 import GetRandomRecipe from "@/components/homescreen/getRandomRecipe";
 import RecipesButton from "@/components/homescreen/recipesButton";
@@ -12,6 +13,7 @@ export default function Home() {
 
 			<RecipesButton />
 			<CreateRecipeButton />
+			<CreateIngredientButton />
 			<GetRandomRecipe />
 		</main>
 	);
