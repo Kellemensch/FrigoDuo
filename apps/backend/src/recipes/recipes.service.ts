@@ -82,4 +82,15 @@ export class RecipesService {
   deleteRecipe(id: number) {
     return this.prisma.recipe.delete({ where: { id } });
   }
+
+  async getRandomRecipe() {
+    const recipesCount = await this.prisma.recipe.count();
+    if (recipesCount === 0) return null;
+
+    const skip = Math.floor(Math.random() * recipesCount);
+
+    return this.prisma.recipe.findFirst({
+      skip: skip,
+    });
+  }
 }

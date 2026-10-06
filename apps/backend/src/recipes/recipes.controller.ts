@@ -16,6 +16,11 @@ import { UpdateRecipeDto } from './dto/UpdateRecipeDto.dto';
 export class RecipesController {
   constructor(private readonly recipesService: RecipesService) {}
 
+  @Get('random')
+  getRandomRecipe() {
+    return this.recipesService.getRandomRecipe();
+  }
+
   @Get()
   getRecipes() {
     return this.recipesService.getRecipes();

@@ -37,3 +37,15 @@ export async function createRecipe(recipe: CreateRecipeInput): Promise<Recipe> {
 
 	return response.json();
 }
+
+export async function getRandomRecipe(): Promise<Recipe> {
+	const response = await fetch(`${API_URL}/recipes/random`, {
+		method: "GET",
+	});
+
+	if (!response.ok) {
+		throw new Error("Impossible de récupérer une recette aléatoire");
+	}
+
+	return response.json();
+}
